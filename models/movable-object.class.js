@@ -1,9 +1,10 @@
 class MovableObject {
   x = 120;
-  y = 150;
+  y = 280;
   img;
   height = 150;
   width = 100;
+
 
   loadImage(path) {
     this.img = new Image();
