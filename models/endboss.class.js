@@ -28,7 +28,7 @@ class Endboss extends MovableObject {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
-        this.x = 2500;
+        this.x = 3800;
         this.animate();
     }
 
@@ -37,17 +37,15 @@ class Endboss extends MovableObject {
         let i = 0;
 
         setInterval(() => {
-            if(i < 8) {
-                setInterval(() => {
-                    this.moveLeft();
-                }, 1000/60);
-                this.playAnimation(this.IMAGES_WALKING); 
-             } else {
+            if(i > 8) {
                 this.playAnimation(this.IMAGES_ALERT);
+
+             } else {
+                this.playAnimation(this.IMAGES_WALKING); 
             }
             i++;
 
-            if(world.character.x > 2000 && !this.hadFirstContact){
+            if(world.character.x > 3400 && !this.hadFirstContact){
                 i = 0;
                 this.hadFirstContact = true;
             }
