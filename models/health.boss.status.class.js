@@ -10,6 +10,6 @@ class BossStatusBar extends StatusBar {
               'img/7_statusbars/2_statusbar_endboss/green/green80.png',
               'img/7_statusbars/2_statusbar_endboss/green/green100.png',
             ],
-            40, 120, 200, 50);
+            20, 120, 150, 40);
     }
 }

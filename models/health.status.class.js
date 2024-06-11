@@ -10,6 +10,6 @@ class HealthStatusBar extends StatusBar {
                 'img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
                 'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png',
             ],
-            40, 0, 200, 50);
+            20, 0, 150, 40);
     }
 }

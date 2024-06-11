@@ -10,6 +10,6 @@ class CoinStatusBar extends StatusBar {
                 'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png',
                 'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png',
             ],
-            40, 80, 200, 50, 0);
+            20, 80, 150, 40, 0);
     }
 }

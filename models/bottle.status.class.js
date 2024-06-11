@@ -10,6 +10,6 @@ class BottleStatusBar extends StatusBar {
                 'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png',
                 'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png',
             ],
-            40, 40, 200, 50, 0);
+            20, 40, 150, 40, 0);
     }
 }
