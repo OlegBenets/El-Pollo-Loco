@@ -1,13 +1,13 @@
 class ThrowableObject extends MovableObject {
 
-    IMAGES_THROW = [
+    IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ];
 
-    IMAGES_BOTTLE_SPLASH = [
+    IMAGES_SPLASH = [
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
@@ -18,8 +18,8 @@ class ThrowableObject extends MovableObject {
 
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-        this.loadImages(this.IMAGES_THROW);
-        this.loadImages(this.IMAGES_BOTTLE_SPLASH);
+        this.loadImages(this.IMAGES_ROTATE);
+        this.loadImages(this.IMAGES_SPLASH);
         this.x = x;
         this.y = y;
         this.height = 60;
@@ -29,38 +29,37 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
-        this.speedY = 30;
+        this.speedY = 18;
         this.applyGravity();
-        this.throwAnimation();
+        this.rotateBottle();
+        this.reachedGround();
+    }
 
-        this.throwInterval = setInterval(() => {
-            if (this.y <= 160 && this.speedY > 0 && !this.isBroken) { // Ensure it's falling down
-                this.y = 160;
-                this.speedY = 0;
-                this.isBroken = true;
-                this.splashAnimation();
-                clearInterval(this.throwInterval);
-            } else if (!this.isBroken) {
-                this.x += 10;
-            }
-            console.log(this.y);
+    rotateBottle() {
+        this.rotationInterval = setInterval(() => {
+                this.isBroken = false;
+                this.playAnimation(this.IMAGES_ROTATE);
+                this.x += 20;
         }, 30);
     }
 
-    throwAnimation() {
-        this.throwAnimationInterval = setInterval(() => {
-            if (!this.isBroken) {
-                this.playAnimation(this.IMAGES_THROW);
-            } else {
-                clearInterval(this.throwAnimationInterval);
-            }
-        }, 100);
+    splashAnimation() {
+        clearInterval(this.rotationInterval);
+        this.isBroken = true;
+        this.splashInterval = setInterval(() => {
+            this.playAnimation(this.IMAGES_SPLASH);
+        }, 200);
     }
 
-    splashAnimation() {
-        this.isBroken = true;
-        this.splashAnimationInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
-        }, 100);
+    reachedGround() {
+        this.throwInterval = setInterval(() => {
+            if (this.y >= 360) {
+                this.y = 370;
+                this.speedY = 0;
+                clearInterval(this.throwInterval);
+                this.splashAnimation();
+            } 
+            console.log(this.y);
+        }, 50);
     }
 }
