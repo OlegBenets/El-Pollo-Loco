@@ -4,7 +4,10 @@ class Character extends MovableObject {
   y = 160;
   speed = 10;
   lastActivityTime = Date.now();
-
+  offsetRight = 30;
+  offsetLeft = 20;
+  offsetTop = 80;
+  offsetBottom = 10;
   IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
     'img/2_character_pepe/1_idle/idle/I-2.png',

@@ -29,7 +29,7 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
-        this.speedY = 18;
+        this.speedY = 25;
         this.applyGravity();
         this.rotateBottle();
         this.reachedGround();
@@ -39,16 +39,17 @@ class ThrowableObject extends MovableObject {
         this.rotationInterval = setInterval(() => {
                 this.isBroken = false;
                 this.playAnimation(this.IMAGES_ROTATE);
-                this.x += 20;
+                this.x += 25;
         }, 30);
     }
 
     splashAnimation() {
-        clearInterval(this.rotationInterval);
         this.isBroken = true;
+        clearInterval(this.throwInterval);
+        clearInterval(this.applyGravityInterval);
         this.splashInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_SPLASH);
-        }, 200);
+        }, 50);
     }
 
     reachedGround() {
@@ -56,10 +57,9 @@ class ThrowableObject extends MovableObject {
             if (this.y >= 360) {
                 this.y = 370;
                 this.speedY = 0;
-                clearInterval(this.throwInterval);
+                clearInterval(this.rotationInterval);
                 this.splashAnimation();
             } 
-            console.log(this.y);
-        }, 50);
+        }, 30);
     }
 }

@@ -3,7 +3,10 @@ class SmallChicken extends MovableObject {
     width = 60;
     height = 60;
     y = 370;
-
+    offsetRight = 5;
+    offsetLeft = 5;
+    offsetTop = 5;
+    offsetBottom = 5;
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',

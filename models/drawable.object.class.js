@@ -25,11 +25,19 @@ class DrawableObject {
   }
 
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coins || this instanceof SalsaBottle) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "blue";
       ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+
+    if (this.offsetTop !== undefined) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "red";
+      ctx.rect(this.x + this.offsetLeft, this.y + this.offsetTop, this.width - this.offsetLeft - this.offsetRight, this.height - this.offsetTop - this.offsetBottom);
       ctx.stroke();
     }
   }
