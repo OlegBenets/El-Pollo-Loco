@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'zabras';
-    src: url('fonts/Zabars.ttf') format('truetype');
+    src: url('./fonts/Zabars.ttf') format('truetype');
 }
 
 
@@ -11,7 +11,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    background-image: url('/img/10_background_body/desert.jpeg');
+    background-image: url('./img/10_background_body/desert.jpeg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -40,7 +40,7 @@ canvas {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-image: url('/img/10_background_body/desert.jpeg');
+    background-image: url('./img/10_background_body/desert.jpeg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -48,7 +48,7 @@ canvas {
 }
 
 #startCanvas {
-    background: url('img/9_intro_outro_screens/start/startscreen_1.png');
+    background: url('./img/9_intro_outro_screens/start/startscreen_1.png');
     background-size: contain;
     background-repeat: no-repeat;
 }

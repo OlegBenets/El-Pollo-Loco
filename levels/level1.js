@@ -67,6 +67,7 @@ const level1 = new Level(
         new SalsaBottle(),
         new SalsaBottle(),
         new SalsaBottle(),
+        new SalsaBottle(),
       ],
       [
         new Coins(),

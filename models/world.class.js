@@ -38,21 +38,12 @@ class World {
       if (this.character.bottles > 0) {
         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
         this.throwableObjects.push(bottle);
+        console.log(this.throwableObjects,"object");
         this.character.throwBottle();
+            this.salsaBottleStatus.setPercentage(this.character.bottles);
         console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.character.bottles}`);
-        this.salsaBottleStatus.setPercentage(this.character.bottles);
-        console.log(`Prozentsatz der Flaschen nach Werfen: ${this.character.bottles}%`);
     } 
-  }
-  }
-
-  checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if(this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.healthStatus.setPercentage(this.character.energy)
-      }
-    });
+   }
   }
 
   checkBottleCollection() {
@@ -65,9 +56,20 @@ class World {
           this.salsaBottleStatus.setPercentage(this.character.bottles);
           console.log(`Prozentsatz der Flaschen nach Sammeln: ${this.character.bottles}%`);
           this.level.bottles.splice(index, 1);
+          console.log(this.level.bottles, "array");
         }
       }
     })
+  }
+
+
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if(this.character.isColliding(enemy)) {
+        this.character.hit();
+        this.healthStatus.setPercentage(this.character.energy)
+      }
+    });
   }
 
 

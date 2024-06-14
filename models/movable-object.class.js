@@ -71,7 +71,7 @@ class MovableObject extends DrawableObject {
   }
 
   bottleCollected() {
-    this.bottles += 0;
+    this.bottles += 10;
     if(this.bottles > 100) {
       this.bottles = 100;
     }
@@ -79,10 +79,11 @@ class MovableObject extends DrawableObject {
   }
 
   throwBottle() {
-    this.bottles -= 20;
+    this.bottles -= 10;
     if(this.bottles < 0) {
       this.bottles = 0;
     }
     console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.bottles}`);
+
   }
 }

@@ -20,7 +20,6 @@ setPercentage(percentage) {
     let newIndex = this.resolveImageIndex();
     let path = this.IMAGES[newIndex];
     this.img = this.imageCache[path];
-    console.log(`Aktualisiere Statusleiste: ${newIndex}`);
 }
 
     resolveImageIndex() {
