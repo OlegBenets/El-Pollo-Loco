@@ -28,15 +28,22 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+      this.checkBottleCollection();
       this.checkThrowObject();
     }, 200);
   }
 
   checkThrowObject() {
     if(this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-      this.throwableObjects.push(bottle);
-    }
+      if (this.character.bottles > 0) {
+        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+        this.throwableObjects.push(bottle);
+        this.character.throwBottle();
+        console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.character.bottles}`);
+        this.salsaBottleStatus.setPercentage(this.character.bottles);
+        console.log(`Prozentsatz der Flaschen nach Werfen: ${this.character.bottles}%`);
+    } 
+  }
   }
 
   checkCollisions() {
@@ -46,6 +53,21 @@ class World {
         this.healthStatus.setPercentage(this.character.energy)
       }
     });
+  }
+
+  checkBottleCollection() {
+    this.level.bottles.forEach((bottle, index) => {
+      if(this.character.isColliding(bottle)) {
+        console.log(`Flasche gefunden: ${index}. Aktuelle Flaschen: ${this.character.bottles}`);
+        if(this.character.bottles <= 100) {
+          this.character.bottleCollected();
+          console.log(`Flasche gesammelt: ${index}. Aktuelle Flaschen nach Sammeln: ${this.character.bottles}`);
+          this.salsaBottleStatus.setPercentage(this.character.bottles);
+          console.log(`Prozentsatz der Flaschen nach Sammeln: ${this.character.bottles}%`);
+          this.level.bottles.splice(index, 1);
+        }
+      }
+    })
   }
 
 

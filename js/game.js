@@ -30,7 +30,7 @@ function stopIntervals() {
 
 function initializeBackgroundAudio() {
     if(!background) {
-        background = new Audio('/audio/background.mp3');
+        background = new Audio('./audio/background.mp3');
         background.volume = 0.1;
     }
     background.pause();
