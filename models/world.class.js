@@ -29,6 +29,7 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkBottleCollection();
+      this.checkCoinCollection();
       this.checkThrowObject();
     }, 200);
   }
@@ -38,10 +39,10 @@ class World {
       if (this.character.bottles > 0) {
         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
         this.throwableObjects.push(bottle);
-        console.log(this.throwableObjects,"object");
+        // console.log(this.throwableObjects,"object");
         this.character.throwBottle();
             this.salsaBottleStatus.setPercentage(this.character.bottles);
-        console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.character.bottles}`);
+        // console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.character.bottles}`);
     } 
    }
   }
@@ -49,14 +50,30 @@ class World {
   checkBottleCollection() {
     this.level.bottles.forEach((bottle, index) => {
       if(this.character.isColliding(bottle)) {
-        console.log(`Flasche gefunden: ${index}. Aktuelle Flaschen: ${this.character.bottles}`);
-        if(this.character.bottles <= 100) {
+        // console.log(`Flasche gefunden: ${index}. Aktuelle Flaschen: ${this.character.bottles}`);
+        if(this.character.bottles < 100) {
           this.character.bottleCollected();
-          console.log(`Flasche gesammelt: ${index}. Aktuelle Flaschen nach Sammeln: ${this.character.bottles}`);
+          // console.log(`Flasche gesammelt: ${index}. Aktuelle Flaschen nach Sammeln: ${this.character.bottles}`);
           this.salsaBottleStatus.setPercentage(this.character.bottles);
-          console.log(`Prozentsatz der Flaschen nach Sammeln: ${this.character.bottles}%`);
+          // console.log(`Prozentsatz der Flaschen nach Sammeln: ${this.character.bottles}%`);
           this.level.bottles.splice(index, 1);
-          console.log(this.level.bottles, "array");
+          // console.log(this.level.bottles, "array");
+        }
+      }
+    })
+  }
+
+  checkCoinCollection() {
+    this.level.coins.forEach((coin, index) => {
+      if(this.character.isColliding(coin)) {
+        console.log(`Coin gefunden: ${index}. Aktuelle Coin: ${this.character.coins}`);
+        if(this.character.coins < 100) {
+          this.character.coinsCollected();
+          console.log(`Flasche gesammelt: ${index}. Aktuelle Flaschen nach Sammeln: ${this.character.coins}`);
+          this.coinStatus.setPercentage(this.character.coins);
+          console.log(`Prozentsatz der Flaschen nach Sammeln: ${this.character.coins}%`);
+          this.level.coins.splice(index, 1);
+          console.log(this.level.coins, "array");
         }
       }
     })

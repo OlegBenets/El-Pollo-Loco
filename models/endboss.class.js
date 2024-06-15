@@ -40,16 +40,16 @@ class Endboss extends MovableObject {
 
 
     animate() {
-        this.animationInterval = setInterval(() => {
-            if (world.character.x > 3400 && !this.hadFirstContact) {
-                this.hadFirstContact = true;
-                clearInterval(this.animationInterval);
-                this.startWalking();
-            } else {
-                this.playAnimation(this.IMAGES_ALERT);
-            }
-        }, 200);
-    }
+            this.animationInterval = setInterval(() => {
+                if (world && world.character && world.character.x > 3400 && !this.hadFirstContact) {
+                    this.hadFirstContact = true;
+                    clearInterval(this.animationInterval);
+                    this.startWalking();
+                } else {
+                    this.playAnimation(this.IMAGES_ALERT);
+                }
+            }, 200);
+        }
 
     startWalking() {
         this.animationInterval = setInterval(() => {

@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   energy = 100;
   bottles = 0;
+  coins = 0;
   lastHit = 0;
 
   applyGravity() {
@@ -71,19 +72,28 @@ class MovableObject extends DrawableObject {
   }
 
   bottleCollected() {
-    this.bottles += 10;
-    if(this.bottles > 100) {
-      this.bottles = 100;
+    if (this.bottles < 100) {
+      this.bottles += 20;
+      if(this.bottles > 100) {
+        this.bottles = 100;
+      }
+      // console.log(`Flasche gesammelt. Gesamtflaschen: ${this.bottles}`);
     }
-    console.log(`Flasche gesammelt. Gesamtflaschen: ${this.bottles}`);
+  }
+
+  coinsCollected() {
+    if(this.coins < 100) {
+      this.coins += 20;
+    } if(this.coins > 100) {
+      this.coins = 100;
+    }
   }
 
   throwBottle() {
-    this.bottles -= 10;
+    this.bottles -= 20;
     if(this.bottles < 0) {
       this.bottles = 0;
     }
-    console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.bottles}`);
-
+    // console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.bottles}`);
   }
 }

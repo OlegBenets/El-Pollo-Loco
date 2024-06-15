@@ -2,7 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let background;
-let intervalIds = [];
+
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -11,21 +11,19 @@ function init() {
 
 
 function startGame() {
+    resetGame();
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('canvas').style.display = 'block';
     initializeBackgroundAudio();
     init();
 }
 
-function stopIntervals() {
-    intervalIds.forEach(clearInterval);
-    intervalIds = [];
-  }
-
-  function startInterval(fn, time) {
-    let id = setInterval(fn, time);
-    intervalIds.push(id);
-  }
+function resetGame() {
+    canvas = null;
+    world = null;
+    keyboard = new Keyboard();
+    background = null;
+}
 
 
 function initializeBackgroundAudio() {
