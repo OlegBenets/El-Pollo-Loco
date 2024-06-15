@@ -117,7 +117,7 @@ class Character extends MovableObject {
       } else {
         this.idleAnimations();
      }
-    }, 80);
+    }, 150);
   }
 
   moveCharacterRight() {
