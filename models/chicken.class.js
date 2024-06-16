@@ -42,14 +42,16 @@ class Chicken extends MovableObject {
         }, 100);
     }
 
-    chickenDead() {
+    EnemyDead() {
         if(!this.isDead) {
             this.isDead = true;
             this.playAnimation(this.IMAGES_DEAD);
             setTimeout(() => {
                 let index = world.level.enemies.indexOf(this);
-                world.level.enemies.splice(index, 1);
-            }, 150)
+                if (index >- 1) {
+                    world.level.enemies.splice(index, 1);
+                }
+            }, 250)
         }
     }
 }

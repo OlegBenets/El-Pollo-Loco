@@ -58,14 +58,18 @@ class World {
           this.character.hit();
           this.healthStatus.setPercentage(this.character.energy)
         } else {
-          if(enemy instanceof Chicken && !enemy.isDead && this.character.isAboveEnemyTop(enemy)) {
-            enemy.chickenDead();
-            this.character.jump();
+          this.defeatEnemy(enemy);
           }
-        }
       }
     });
   }
+
+  defeatEnemy(enemy) {
+    if((enemy instanceof Chicken || enemy instanceof SmallChicken) && !enemy.isDead && this.character.isColliding(enemy)) {
+      enemy.EnemyDead();
+      this.character.jump();
+  }
+}
 
   checkBottleCollection() {
     this.level.bottles.forEach((bottle, index) => {

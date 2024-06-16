@@ -13,12 +13,15 @@ class MovableObject extends DrawableObject {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
+      } else {
+        this.y = 160;
+        this.speedY = 0;
       }
     }, 1000 / 60);
   }
 
   isAboveGround() {
-    if(this instanceof ThrowableObject) {
+    if(this instanceof ThrowableObject || this instanceof SmallChicken) {
       return true;
     } else {
     return this.y < 160;
@@ -31,10 +34,6 @@ class MovableObject extends DrawableObject {
            this.y + this.height - this.offsetBottom > mo.y + mo.offsetTop &&
            this.x + this.offsetLeft < mo.x + mo.width - mo.offsetRight && 
            this.y + this.offsetTop < mo.y + mo.height - mo.offsetBottom;
-  }
-
-  isAboveEnemyTop(mo) {
-    return this.y + this.height - this.offsetTop <= mo.y + mo.offsetTop;
   }
 
   hit() {
@@ -72,7 +71,7 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 30;
+    this.speedY = 20;
   }
 
   bottleCollected() {
@@ -101,3 +100,5 @@ class MovableObject extends DrawableObject {
     // console.log(`Flasche geworfen. Verbleibende Flaschen: ${this.bottles}`);
   }
 }
+
+
