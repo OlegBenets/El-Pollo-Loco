@@ -31,8 +31,10 @@ class World {
       this.checkBottleCollection();
       this.checkCoinCollection();
       this.checkThrowObject();
+      this.bottleCollisionWithEnemy();
     }, 200);
   }
+
 
   checkThrowObject() {
     if(this.keyboard.D) {
@@ -40,14 +42,8 @@ class World {
         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
         this.throwableObjects.push(bottle);
         this.character.throwBottle();
-            this.salsaBottleStatus.setPercentage(this.character.bottles);
-
-            this.level.enemies.forEach((enemy) => {
-              if(bottle.isColliding(enemy)) {
-                enemy.chickenDead();
-              }
-            });
-    } 
+        this.salsaBottleStatus.setPercentage(this.character.bottles);
+    }
    }
   }
 
@@ -64,8 +60,29 @@ class World {
     });
   }
 
+  bottleCollisionWithEnemy() {
+    this.throwableObjects.forEach((bottle) => {
+      this.level.enemies.forEach((enemy) =>  {
+        if(bottle.isColliding(enemy)) {
+          if(enemy instanceof Chicken || enemy instanceof SmallChicken) {
+            enemy.EnemyDead();
+          } 
+          if(enemy instanceof Endboss) {
+            enemy.hitEndBoss();
+            enemy.hitChickenBoss();
+            this.bossStatus.setPercentage(enemy.energy);
+            console.log('hit endboss');
+          }
+          console.log('bottle hit enemy');
+          bottle.splashAnimation();
+          bottle.removeBottle();
+        }
+      });
+      });
+    }
+
   defeatEnemy(enemy) {
-    if((enemy instanceof Chicken || enemy instanceof SmallChicken) && !enemy.isDead && this.character.isColliding(enemy)) {
+    if((enemy instanceof Chicken || enemy instanceof SmallChicken) && !enemy.isDead && this.character.isAboveEnemyTop(enemy)) {
       enemy.EnemyDead();
       this.character.jump();
   }

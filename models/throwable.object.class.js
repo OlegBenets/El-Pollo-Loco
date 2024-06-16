@@ -42,9 +42,8 @@ class ThrowableObject extends MovableObject {
 
     rotateBottle() {
         this.rotationInterval = setInterval(() => {
-                this.isBroken = false;
+            this.x += 20;
                 this.playAnimation(this.IMAGES_ROTATE);
-                this.x += 25;
         }, 30);
     }
 
@@ -59,13 +58,26 @@ class ThrowableObject extends MovableObject {
 
     reachedGround() {
         this.throwInterval = setInterval(() => {
-            if (this.y >= 360) {
+            if (this.y >= 370) {
                 this.y = 370;
                 this.speedY = 0;
                 clearInterval(this.rotationInterval);
                 this.splashAnimation();
-            } 
+                this.removeBottle();
+            } else {
+                this.y += this.speedY;
+            }
         }, 30);
-
     }
+
+    removeBottle() {
+        setTimeout(() => {
+            let index = world.throwableObjects.indexOf(this);
+            if(index > -1) {
+                world.throwableObjects.splice(index, 1);
+            }
+        }, 100);
+    }
+    
+    
 }

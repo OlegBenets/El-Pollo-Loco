@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
   coins = 0;
   lastHit = 0;
 
+
   applyGravity() {
     this.applyGravityInterval = setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -34,6 +35,18 @@ class MovableObject extends DrawableObject {
            this.y + this.height - this.offsetBottom > mo.y + mo.offsetTop &&
            this.x + this.offsetLeft < mo.x + mo.width - mo.offsetRight && 
            this.y + this.offsetTop < mo.y + mo.height - mo.offsetBottom;
+  }
+
+
+  isAboveEnemyTop(mo) {
+    return this.y + this.height - this.offsetTop <= mo.y + mo.offsetTop;
+  }
+
+  hitChickenBoss() {
+    this.energy -=20;
+    if(this.energy < 0) {
+      this.energy = 0;
+    }
   }
 
   hit() {

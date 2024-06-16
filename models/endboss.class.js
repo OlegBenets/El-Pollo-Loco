@@ -25,23 +25,36 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_chicken/1_walk/G4.png',
     ];
 
+    IMAGES_HURT = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png',
+    ];
+
+    IMAGES_DEAD = [
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png',
+    ];
+
     hadFirstContact = false;
-    animationInterval;
-    movementInterval;
+    bossDead = false;
 
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.x = 3800;
-        this.speed = 1.5;
+        this.speed = 1.25;
         this.animate();
     }
 
 
     animate() {
             this.animationInterval = setInterval(() => {
-                if (world && world.character && world.character.x > 3400 && !this.hadFirstContact) {
+                 if (world && world.character && world.character.x > 3400 && !this.hadFirstContact) {
                     this.hadFirstContact = true;
                     clearInterval(this.animationInterval);
                     this.startWalking();
@@ -49,10 +62,10 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_ALERT);
                 }
             }, 200);
-        }
+         }
 
     startWalking() {
-        this.animationInterval = setInterval(() => {
+        this.walkingInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 100);
 
@@ -60,4 +73,27 @@ class Endboss extends MovableObject {
             this.moveLeft();
         }, 1000 / 60);
     }
+
+    hurtAnimation() {
+        this.hurtInverval = setInterval(() => {
+            this.playAnimation(this.IMAGES_HURT);
+        }, 100);
+    }
+
+    hitEndBoss() {
+        if(!this.bossDead) {
+            clearInterval(this.animationInterval);
+            clearInterval(this.walkingInterval);
+            clearInterval(this.movementInterval);
+            this.hurtAnimation();
+            setTimeout(() => {
+                clearInterval(this.hurtInverval);
+                if(this.isDead()) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                }
+                    this.startWalking();
+            }, 1500)
+        }
+    }
+
 }
