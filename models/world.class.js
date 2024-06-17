@@ -38,7 +38,7 @@ class World {
 
 
   checkThrowObject() {
-    if(this.keyboard.D && Date.now() - this.lastThrowTIme >= 500) {
+    if(this.keyboard.D && Date.now() - this.lastThrowTIme >= 1000) {
       if (this.character.bottles > 0) {
         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
         this.throwableObjects.push(bottle);
@@ -53,7 +53,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if(this.character.isColliding(enemy)) {
         if(!this.character.isAboveGround()) {
-          if(enemy instanceof Endboss) {
+          if(enemy instanceof Endboss && !enemy.isAttacking) {
             enemy.chickenBossAttack();
           }
           this.character.hit();

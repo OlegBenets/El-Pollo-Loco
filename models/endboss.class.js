@@ -50,6 +50,9 @@ class Endboss extends MovableObject {
   hadFirstContact = false;
   bossDead = false;
   isHurt = false;
+  isAttacking = false;
+  invulnerable = false;
+
 
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
@@ -59,48 +62,51 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 3800;
-    this.speed = 2;
+    this.speed = 2.5;
     this.animate();
   }
 
   animate() {
     this.animationInterval = setInterval(() => {
       if (world && world.character) {
-        if (world.character.x > 3400 && !this.hadFirstContact) {
+        if (world.character.x > 3300 && !this.hadFirstContact) {
           this.hadFirstContact = true;
           this.startWalking();
         } else if (this.bossDead) {
           this.playAnimation(this.IMAGES_DEAD);
         } else if (this.isHurt) {
           this.playAnimation(this.IMAGES_HURT);
+        } else if(this.isAttacking) {
+          this.playAnimation(this.IMAGES_ATTACK);
+        } else if (!this.hadFirstContact) {
+          this.playAnimation(this.IMAGES_ALERT);
         } else {
-            this.playAnimation(this.IMAGES_ALERT);
+          this.fasterWalk();
         }
       }
-    }, 250);
+    }, 150);
   }
 
   startWalking() {
-   
+  
     if (this.walkingInterval) clearInterval(this.walkingInterval);
     this.walkingInterval = setInterval(() => {
-      if (!this.isHurt && !this.bossDead) {
+      if (!this.isHurt && !this.bossDead && !this.isAttacking) {
         this.moveLeft();
       }
     }, 1000 / 60);
    
     if(this.walkingAnimationInterval) clearInterval(this.walkingAnimationInterval);
     this.walkingAnimationInterval = setInterval(() => {
-      if (!this.isHurt && !this.bossDead) {
+      if (!this.isHurt && !this.bossDead && !this.isAttacking) {
         this.playAnimation(this.IMAGES_WALKING);
       }
-    }, 150);
+    }, 100);
   }
 
   hurtAnimation() {
     this.isHurt = true;
-    clearInterval(this.walkingInterval);
-    clearInterval(this.walkingAnimationInterval);
+
     setTimeout(() => {
       this.isHurt = false;
       if (!this.bossDead) {
@@ -113,19 +119,25 @@ class Endboss extends MovableObject {
 
   die() {
     this.bossDead = true;
-    clearInterval(this.walkingInterval);
-    clearInterval(this.walkingAnimationInterval);
     this.playAnimation(this.IMAGES_DEAD);
   }
 
   chickenBossAttack() {
-    clearInterval(this.walkingInterval);
-    clearInterval(this.walkingAnimationInterval);
-     this.attackInterval =  setInterval(() => {
+    this.isAttacking = true;
+    
+    this.attackInterval =  setInterval(() => {
         if(!this.bossDead && !this.isHurt) {
             this.playAnimation(this.IMAGES_ATTACK);
         }
-    }, 250);
+    }, 150);
+
+    setTimeout(() => {
+      this.isAttacking = false;
+      clearInterval(this.attackInterval);
+      if (!this.bossDead && !this.isHurt) {
+        this.startWalking();
+      }
+    }, 1500);
   }
 
   hitEndBoss() {
@@ -134,6 +146,17 @@ class Endboss extends MovableObject {
       if (this.isDead()) {
         this.die();
       }
+
+      this.invulnerable = true;
+      setTimeout (() => {
+        this.invulnerable = false;
+      }, 3000);
+    }
+  }
+
+  fasterWalk() {
+    if(this.energy < 60 && this.speed !== 5) {
+      this.speed = 5;
     }
   }
 }
