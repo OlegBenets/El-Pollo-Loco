@@ -10,6 +10,7 @@ class World {
   salsaBottleStatus = new BottleStatusBar();
   coinStatus = new CoinStatusBar();
   throwableObjects = []; 
+  lastThrowTIme = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -37,12 +38,13 @@ class World {
 
 
   checkThrowObject() {
-    if(this.keyboard.D) {
+    if(this.keyboard.D && Date.now() - this.lastThrowTIme >= 500) {
       if (this.character.bottles > 0) {
         let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
         this.throwableObjects.push(bottle);
         this.character.throwBottle();
         this.salsaBottleStatus.setPercentage(this.character.bottles);
+        this.lastThrowTIme = Date.now();
     }
    }
   }
@@ -51,6 +53,9 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if(this.character.isColliding(enemy)) {
         if(!this.character.isAboveGround()) {
+          if(enemy instanceof Endboss) {
+            enemy.chickenBossAttack();
+          }
           this.character.hit();
           this.healthStatus.setPercentage(this.character.energy)
         } else {
@@ -71,9 +76,7 @@ class World {
             enemy.hitEndBoss();
             enemy.hitChickenBoss();
             this.bossStatus.setPercentage(enemy.energy);
-            console.log('hit endboss');
           }
-          console.log('bottle hit enemy');
           bottle.splashAnimation();
           bottle.removeBottle();
         }
