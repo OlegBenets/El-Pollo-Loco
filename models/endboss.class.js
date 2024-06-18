@@ -54,6 +54,7 @@ class Endboss extends MovableObject {
   invulnerable = false;
 
 
+  
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_ALERT);
@@ -62,7 +63,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 3800;
-    this.speed = 2.5;
+    this.speed = 3;
     this.animate();
   }
 
@@ -114,7 +115,7 @@ class Endboss extends MovableObject {
       } else {
         this.die();
       }
-    }, 1500);
+    }, 1000);
   }
 
   die() {
@@ -142,6 +143,7 @@ class Endboss extends MovableObject {
 
   hitEndBoss() {
     if (!this.bossDead && !this.isHurt) {
+      this.hadFirstContact = true;
       this.hurtAnimation();
       if (this.isDead()) {
         this.die();
@@ -150,13 +152,15 @@ class Endboss extends MovableObject {
       this.invulnerable = true;
       setTimeout (() => {
         this.invulnerable = false;
-      }, 3000);
+      }, 1500);
     }
   }
 
   fasterWalk() {
-    if(this.energy < 60 && this.speed !== 5) {
-      this.speed = 5;
+    if(this.energy < 80 && this.speed !== 6) {
+      this.speed = 6;
+    } else if (this.energy < 60 && this.speed !== 8) {
+      this.speed = 8;
     }
   }
 }

@@ -97,11 +97,11 @@ class Character extends MovableObject {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
          this.moveCharacterRight();
       }
-      if (this.world.keyboard.LEFT && this.x > 0) {
+      if (this.world.keyboard.LEFT && this.x > 120) {
         this.moveCharacterLeft();
       }
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-        this.characterJump();
+          this.characterJump();
       }
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
@@ -118,7 +118,7 @@ class Character extends MovableObject {
       } else {
         this.idleAnimations();
      }
-    }, 200);
+    }, 100);
   }
 
   moveCharacterRight() {

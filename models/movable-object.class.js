@@ -39,7 +39,8 @@ class MovableObject extends DrawableObject {
 
 
   isAboveEnemyTop(mo) {
-    return this.y + this.height - this.offsetTop <= mo.y + mo.offsetTop;
+    let tolerance = 20;
+    return this.y + this.height - this.offsetTop <= mo.y + mo.offsetTop + tolerance;
   }
 
   hitChickenBoss() {
@@ -48,6 +49,7 @@ class MovableObject extends DrawableObject {
       this.energy = 0;
     }
   }
+  
 
   hit() {
     this.energy -= 5;
@@ -60,7 +62,7 @@ class MovableObject extends DrawableObject {
 
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
-    timepassed = timepassed / 500;
+    timepassed = timepassed / 250;
     return timepassed < 1;
   }
 

@@ -51,7 +51,7 @@ class Chicken extends MovableObject {
                 if (index >- 1) {
                     world.level.enemies.splice(index, 1);
                 }
-            }, 250)
+            }, 500)
         }
     }
 }

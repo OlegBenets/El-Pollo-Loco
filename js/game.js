@@ -11,20 +11,11 @@ function init() {
 
 
 function startGame() {
-    resetGame();
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('canvas').style.display = 'block';
     initializeBackgroundAudio();
     init();
 }
-
-function resetGame() {
-    canvas = null;
-    world = null;
-    keyboard = new Keyboard();
-    background = null;
-}
-
 
 function initializeBackgroundAudio() {
     if(!background) {

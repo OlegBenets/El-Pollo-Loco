@@ -9,6 +9,7 @@ class World {
   healthStatus = new HealthStatusBar();
   salsaBottleStatus = new BottleStatusBar();
   coinStatus = new CoinStatusBar();
+  winscreen = new Winscreen();
   throwableObjects = []; 
   lastThrowTIme = 0;
 
@@ -33,18 +34,14 @@ class World {
       this.checkCoinCollection();
       this.checkThrowObject();
       this.bottleCollisionWithEnemy();
-    }, 200);
+    }, 1000 / 60);
   }
 
 
   checkThrowObject() {
-    if(this.keyboard.D && Date.now() - this.lastThrowTIme >= 1000) {
+    if(this.keyboard.D && Date.now() - this.lastThrowTIme >= 500) {
       if (this.character.bottles > 0) {
-        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-        this.throwableObjects.push(bottle);
-        this.character.throwBottle();
-        this.salsaBottleStatus.setPercentage(this.character.bottles);
-        this.lastThrowTIme = Date.now();
+        this.throwBottleAndUpdateStatus();
     }
    }
   }
@@ -55,9 +52,11 @@ class World {
         if(!this.character.isAboveGround()) {
           if(enemy instanceof Endboss && !enemy.isAttacking) {
             enemy.chickenBossAttack();
+          } else if(!this.character.isHurt()) {
+            this.character.hit();
+            console.log(this.character.energy);
+            this.healthStatus.setPercentage(this.character.energy);
           }
-          this.character.hit();
-          this.healthStatus.setPercentage(this.character.energy)
         } else {
           this.defeatEnemy(enemy);
           }
@@ -71,10 +70,13 @@ class World {
         if(bottle.isColliding(enemy)) {
           if(enemy instanceof Chicken || enemy instanceof SmallChicken) {
             enemy.EnemyDead();
-          } 
-          if(enemy instanceof Endboss) {
-            enemy.hitEndBoss();
-            enemy.hitChickenBoss();
+          } else if (enemy instanceof Endboss) {
+            if(!enemy.invulnerable) {
+              enemy.hitEndBoss();
+              enemy.hitChickenBoss();
+            } else if (enemy.bossDead) {
+              this.addToMap(this.winscreen);
+            }
             this.bossStatus.setPercentage(enemy.energy);
           }
           bottle.splashAnimation();
@@ -91,13 +93,12 @@ class World {
   }
 }
 
+
   checkBottleCollection() {
     this.level.bottles.forEach((bottle, index) => {
       if(this.character.isColliding(bottle)) {
         if(this.character.bottles < 100) {
-          this.character.bottleCollected();
-          this.salsaBottleStatus.setPercentage(this.character.bottles);
-          this.level.bottles.splice(index, 1);
+          this.characterCollectedBottle(index);
         }
       }
     })
@@ -107,12 +108,30 @@ class World {
     this.level.coins.forEach((coin, index) => {
       if(this.character.isColliding(coin)) {
         if(this.character.coins < 100) {
-          this.character.coinsCollected();
-          this.coinStatus.setPercentage(this.character.coins);
-          this.level.coins.splice(index, 1);
+          this.characterCollectedCoin(index);
         }
       }
     })
+  }
+
+  throwBottleAndUpdateStatus() {
+    let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+    this.throwableObjects.push(bottle);
+    this.character.throwBottle();
+    this.salsaBottleStatus.setPercentage(this.character.bottles);
+    this.lastThrowTIme = Date.now();
+  }
+
+  characterCollectedBottle(index) {
+    this.character.bottleCollected();
+    this.salsaBottleStatus.setPercentage(this.character.bottles);
+    this.level.bottles.splice(index, 1);
+  }
+
+  characterCollectedCoin(index) {
+    this.character.coinsCollected();
+    this.coinStatus.setPercentage(this.character.coins);
+    this.level.coins.splice(index, 1);
   }
 
   draw() {
