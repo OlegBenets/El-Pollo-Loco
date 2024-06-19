@@ -4,6 +4,7 @@ class ThrowableObject extends MovableObject {
     offsetLeft = 5;
     offsetTop = 5;
     offsetBottom = 5;
+    splash_audio = new Audio('./audio/bottle-splash.mp3');
 
     IMAGES_ROTATE = [
         './img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -63,6 +64,7 @@ class ThrowableObject extends MovableObject {
                 this.speedY = 0;
                 clearInterval(this.rotationInterval);
                 this.splashAnimation();
+                this.splash_audio.play();
                 this.removeBottle();
             } else {
                 this.y += this.speedY;

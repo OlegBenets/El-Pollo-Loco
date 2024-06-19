@@ -12,6 +12,8 @@ class Character extends MovableObject {
   world;
   walking_audio = new Audio('./audio/walking2.mp3');
   jumping_audio = new Audio ('./audio/jump3.mp3');
+  hurt_audio = new Audio ('./audio/player-hurt.mp3');
+  game_lost_audio = new Audio('./audio/game-over.mp3');
 
   IMAGES_IDLE = [
     './img/2_character_pepe/1_idle/idle/I-1.png',
@@ -92,7 +94,7 @@ class Character extends MovableObject {
   animate() {
 
     setInterval(() => {
-      this.pauseAudio();
+      this.pauseAudioAndSetVolume();
       
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
          this.moveCharacterRight();
@@ -108,10 +110,12 @@ class Character extends MovableObject {
 
     setInterval(() => {
       if(this.isDead()) {
+        this.game_lost_audio.play();
         this.playAnimation(this.IMAGES_DEAD);
       } else if(this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if(this.isHurt()) {
+        this.hurt_audio.play();
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
@@ -150,11 +154,11 @@ class Character extends MovableObject {
         }
   }
 
-  pauseAudio() {
+  pauseAudioAndSetVolume() {
     this.walking_audio.volume = 0.1;
     this.jumping_audio.volume = 0.1;
+    this.hurt_audio.volume = 0.1;
     this.walking_audio.pause();
-    this.jumping_audio.pause();
   }
 }
 

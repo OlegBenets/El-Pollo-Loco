@@ -6,6 +6,9 @@ class Endboss extends MovableObject {
   offsetLeft = 15;
   offsetTop = 70;
   offsetBottom = 15;
+  bossfight_audio = new Audio('./audio/boss-fight.mp3');
+  bossChicke_walk_audio = new Audio('./audio/chicken.mp3');
+
   IMAGES_ALERT = [
     "./img/4_enemie_boss_chicken/2_alert/G5.png",
     "./img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -72,6 +75,7 @@ class Endboss extends MovableObject {
       if (world && world.character) {
         if (world.character.x > 3300 && !this.hadFirstContact) {
           this.hadFirstContact = true;
+          this.bossfight_audio.play();
           this.startWalking();
         } else if (this.bossDead) {
           this.playAnimation(this.IMAGES_DEAD);
@@ -106,6 +110,7 @@ class Endboss extends MovableObject {
   }
 
   hurtAnimation() {
+    this.bossChicke_walk_audio.play();
     this.isHurt = true;
 
     setTimeout(() => {

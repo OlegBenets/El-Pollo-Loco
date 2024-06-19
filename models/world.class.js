@@ -12,6 +12,13 @@ class World {
   winscreen = new Winscreen();
   throwableObjects = []; 
   lastThrowTIme = 0;
+  throw_audio = new Audio('./audio/throw.mp3');
+  splash_audio = new Audio('./audio/bottle-splash.mp3');
+  jumping_audio = new Audio ('./audio/jump3.mp3');
+  chicken_dead_audio = new Audio('./audio/chicken-dead.mp3');
+  bossChicken_dead_audio = new Audio('./audio/chicken-dead.mp3');
+  coin_audio = new Audio('./audio/coin-collect.mp3');
+  game_win_audio = new Audio('./audio/game-win.mp3');
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -41,6 +48,8 @@ class World {
   checkThrowObject() {
     if(this.keyboard.D && Date.now() - this.lastThrowTIme >= 500) {
       if (this.character.bottles > 0) {
+        this.throw_audio.play();
+        this.throw_audio.volume = 0.1;
         this.throwBottleAndUpdateStatus();
     }
    }
@@ -70,11 +79,16 @@ class World {
         if(bottle.isColliding(enemy)) {
           if(enemy instanceof Chicken || enemy instanceof SmallChicken) {
             enemy.EnemyDead();
+            this.splash_audio.play();
+            this.chicken_dead_audio.play();
           } else if (enemy instanceof Endboss) {
             if(!enemy.invulnerable) {
               enemy.hitEndBoss();
               enemy.hitChickenBoss();
+              this.splash_audio.play();
             } else if (enemy.bossDead) {
+              this.bossChicken_dead_audio.play();
+              this.game_win_audio.play();
               this.addToMap(this.winscreen);
             }
             this.bossStatus.setPercentage(enemy.energy);
@@ -89,7 +103,9 @@ class World {
   defeatEnemy(enemy) {
     if((enemy instanceof Chicken || enemy instanceof SmallChicken) && !enemy.isDead && this.character.isAboveEnemyTop(enemy)) {
       enemy.EnemyDead();
+      this.chicken_dead_audio.play();
       this.character.jump();
+      this.jumping_audio.play();
   }
 }
 
@@ -130,6 +146,7 @@ class World {
 
   characterCollectedCoin(index) {
     this.character.coinsCollected();
+    this.coin_audio.play();
     this.coinStatus.setPercentage(this.character.coins);
     this.level.coins.splice(index, 1);
   }
