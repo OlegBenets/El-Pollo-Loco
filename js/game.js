@@ -11,7 +11,7 @@ function init() {
 
 
 function startGame() {
-    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'none';
     document.getElementById('canvas').style.display = 'block';
     initializeBackgroundAudio();
     init();
@@ -25,6 +25,11 @@ function initializeBackgroundAudio() {
     background.pause();
     background.currentTime = 0;
     background.play();
+}
+
+function howToPlay() {
+    let element = document.getElementById('how-to-play');
+    element.classList.toggle('d-none');
 }
 
 

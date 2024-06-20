@@ -30,7 +30,31 @@ canvas {
     display: block;
 }
 
-#startScreen {
+.d-none {
+    display: none !important;
+}
+
+
+.d-block {
+    display: block;
+}
+
+#play-screen {
+    position:relative;
+}
+
+#how-to-play-container {
+    position: relative;
+    width: 720px;
+    height: 480px;
+    border-radius: 20px;
+    background-image: url('./img/10_background_body/hot-to-play-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#start-screen, #how-to-play {
     position: fixed;
     top: 0;
     left: 0;
@@ -47,13 +71,17 @@ canvas {
     z-index: 1000;
 }
 
-#startCanvas {
+#start-canvas {
     background: url('./img/9_intro_outro_screens/start/startscreen_1.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-#startButton {
+#legend {
+    top: 80% !important;
+}
+
+#start-button, #legend {
     position: absolute;
     top: 70%;
     width: 240px;
@@ -69,7 +97,10 @@ canvas {
     transition: background-position 0.225s ease-in-out, box-shadow 0.225s ease-in-out;
 }
 
-#startButton:hover {
+#start-button:hover,
+#legend:hover,
+#button:hover,
+#cancel-button:hover {
     cursor: pointer;
     transform: translate(transition);
     background-position: left;
@@ -78,6 +109,110 @@ canvas {
 
 #canvas {
     display: none;
+}
+
+#button, #cancel-button{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, rgba(142,198,247,1) 0%, rgba(251,153,0,1) 100%);
+    background-size: 150% 100%;
+    background-position: right;
+    transition: background-position 0.225s ease-in-out, box-shadow 0.225s ease-in-out;
+}
+
+#button img, #cancel-button img {
+    width: 35px;
+    height: 35px;
+}
+
+.walk-buttons {
+    position: absolute;
+    left: 80px;
+    bottom: -80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    width: auto;
+    height: auto;
+}
+
+.jump-throw-buttons {
+    position: absolute;
+    right: 80px;
+    bottom: -80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    width: auto;
+    height: auto;
+}
+
+.screen-audio-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: auto;
+    height: auto;
+}
+
+.flaticon-link {
+    display: flex;
+    justify-content: center;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.icon-meaning {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+}
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.icons-container span,
+.icons-container p {
+    font-size: 20px;
+    margin: 0;
+}
+
+.icons-container h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.icon-meaning img {
+    width: 35px;
+    height: 35px;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    font-size: 46px;
+}
+
+#cancel-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
 @media (max-width: 1000px) and (orientation: landscape) {

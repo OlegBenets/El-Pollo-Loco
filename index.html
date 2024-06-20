@@ -1,20 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="shortcut icon" href="./img/7_statusbars/3_icons/icon_salsa_bottle.png" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="shortcut icon"
+      href="./img/7_statusbars/3_icons/icon_salsa_bottle.png"
+      type="image/x-icon"
+    />
     <title>El Pollo Loco</title>
-</head>
-<body>
-    <div id="startScreen">
-        <canvas id="startCanvas" width="720px" height="480px"></canvas>
-        <button onclick="startGame()" id="startButton">Start Game</button>
+  </head>
+  <body>
+    <div id="start-screen">
+      <canvas id="start-canvas" width="720px" height="480px"></canvas>
+      <button onclick="startGame()" id="start-button">Start Game</button>
+      <button onclick="howToPlay()" id="legend">HOW TO PLAY</button>
     </div>
+    <div id="how-to-play" class="d-none">
+    <div id="how-to-play-container">
+        <h2>HOW TO PLAY</h2>
+        <a class="flaticon-link" href="https://www.flaticon.com/free-icons/back" title="back icons">all icons created by - Flaticon</a>
+        <button onclick="howToPlay()" id="cancel-button">
+            <img src="./img/11_play_icons/cancel.png" />
+          </button>
+        <div class="icon-meaning">
+        <div class="icons-container"><img src="./img/11_play_icons/volume.png" /><p>=</p><span>Volume</span></div>
+        <div class="icons-container"><img src="./img/11_play_icons/mute.png" /><p>=</p><span>Mute</span></div>
+        <div class="icons-container"><img src="./img/11_play_icons/full-screen (1).png" /><p>=</p><span>Full Screen</span></div>
+        <div class="icons-container"><img src="./img/11_play_icons/full-screen.png" /><p>=</p><span>Minimize Screen</span></div>
+        <div class="icons-container"><img src="./img/11_play_icons/left-arrow.png" /><p>=</p><span>Walk Left</span></div>
+        <div class="icons-container"><img src="./img/11_play_icons/right-arrow.png" /><p>=</p><span>Walk Right</span></div>
+        <div class="icons-container"><img src="./img/11_play_icons/jump.png" /><p>=</p><span>Jump</span></div>
+        <div class="icons-container"><img src="./img/6_salsa_bottle/salsa_bottle.png" /><p>=</p><span>Throw Bottle</span></div>
+        <div class="icons-container"><h3>D</h3><p>=</p><span>Throw Bottle</span></div>
+        <div class="icons-container"><h3>Left-Arrow</h3><p>=</p><span>Walk Left</span></div>
+        <div class="icons-container"><h3>Right-Arrow</h3><p>=</p><span>Walk Right</span></div>
+        <div class="icons-container"><h3>Space</h3><p>=</p><span>Jump</span></div>
+      </div>
+    </div>
+   </div>
     <h1>El Pollo Loco</h1>
-    <a href="https://www.flaticon.com/free-icons/back" title="back icons">all icons created by - Flaticon</a>
+    <div id="play-screen">
+    <div class="screen-audio-buttons">
+        <button onclick="" id="button">
+          <img src="./img/11_play_icons/mute.png" />
+        </button>
+        <button onclick="" id="button">
+            <img src="./img/11_play_icons/full-screen.png" />
+          </button>
+      </div>
+      <div class="walk-buttons">
+        <button onclick="" id="button">
+          <img src="./img/11_play_icons/left-arrow.png" />
+        </button>
+        <button onclick="" id="button">
+          <img src="./img/11_play_icons/right-arrow.png" />
+        </button>
+      </div>
+      <div class="jump-throw-buttons">
+        <button onclick="" id="button">
+          <img src="./img/11_play_icons/jump.png" />
+        </button>
+        <button onclick="" id="button">
+          <img src="./img/6_salsa_bottle/salsa_bottle.png" />
+        </button>
+      </div>
     <canvas id="canvas" width="720px" height="480px"></canvas>
+</div>
 
     <script src="./models/drawable.object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
@@ -38,5 +91,5 @@
     <script src="./models/throwable.object.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
-</body>
+  </body>
 </html>
