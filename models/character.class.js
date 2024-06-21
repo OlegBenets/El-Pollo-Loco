@@ -115,7 +115,9 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
-      } else {
+      } else if(this.world.gameOver) {
+        this.world.audio.snoring.pause();
+        } else {
         this.idleAnimations();
      }
     }, 100);
@@ -144,19 +146,23 @@ class Character extends MovableObject {
   idleAnimations() {
     let idleTime = Date.now() - this.lastActivityTime;
         if(idleTime > 5000) {
+          this.world.audio.snoring.play();
           this.playAnimation(this.IMAGES_LONG_IDLE);
       } else {
+        this.world.audio.snoring.pause();
         this.playAnimation(this.IMAGES_IDLE);
         }
   }
 
 
   CharacterDead() {
-        this.world.audio.game_lost_audio.play();
-        this.playAnimation(this.IMAGES_DEAD);
-        setTimeout(() => {
-            this.world.character = null;
-        }, 2000)
+    if(!world.gameOver) {
+      this.world.audio.background.pause();
+      this.world.audio.bossfight_audio.pause();
+      this.world.audio.game_lost_audio.play();
+      this.playAnimation(this.IMAGES_DEAD);
+      world.gameOver = true;
+    }
     }
 }
 

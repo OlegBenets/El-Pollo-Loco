@@ -14,8 +14,8 @@
   <body onload="load()">
     <div id="start-screen">
       <canvas id="start-canvas" width="720px" height="480px"></canvas>
-      <button onclick="startGame()" id="start-button">Start Game</button>
-      <button onclick="howToPlay()" id="legend">HOW TO PLAY</button>
+      <button onclick="startGame()" class="start-button" id="start-button">Start Game</button>
+      <button onclick="howToPlay()" class="start-button" id="legend">HOW TO PLAY</button>
     </div>
     <div id="how-to-play" class="d-none">
     <div id="how-to-play-container">
@@ -48,27 +48,28 @@
   </div>
     <h1>El Pollo Loco</h1>
     <div id="play-screen" class="d-none">
+    <button onclick="backToMenu()" id="back-to-menu" class="start-button d-none">Back To Menu</button>
     <div class="screen-audio-buttons">
-        <button onclick="" id="button">
-          <img src="./img/11_play_icons/mute.png" />
+        <button onclick="MuteGame()" id="mute-button" class="button">
+          <img id="mute" src="./img/11_play_icons/volume.png" />
         </button>
-        <button onclick="toggleFullscreen()" id="button">
+        <button onclick="toggleFullscreen()" id="full-screen-button" class="button">
             <img id="full-screen" src="./img/11_play_icons/full-screen (1).png" />
           </button>
       </div>
       <div id="walk-buttons" class="walk-buttons">
-        <button onclick="" id="button">
+        <button id="button-left" class="button">
           <img src="./img/11_play_icons/left-arrow.png" />
         </button>
-        <button onclick="" id="button">
+        <button id="button-right" class="button">
           <img src="./img/11_play_icons/right-arrow.png" />
         </button>
       </div>
       <div id="jump-throw-buttons" class="jump-throw-buttons">
-        <button onclick="" id="button">
+        <button id="button-jump" class="button">
           <img src="./img/11_play_icons/jump.png" />
         </button>
-        <button onclick="" id="button">
+        <button id="button-throw" class="button">
           <img src="./img/6_salsa_bottle/salsa_bottle.png" />
         </button>
       </div>
@@ -91,6 +92,7 @@
     <script src="./models/health.boss.status.class.js"></script>
     <script src="./models/coin.status.class.js"></script>
     <script src="./models/winscreen.class.js"></script>
+    <script src="./models/losescreen.class.js"></script>
     <script src="./models/world.class.js"></script>
     <script src="./models/background.object.class.js"></script>
     <script src="./models/keyboard.class.js"></script>

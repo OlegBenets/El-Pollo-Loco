@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let audio = new AudioManager();
+let isMuted = false;
 
 function load() {
     checkDevice();
@@ -20,7 +21,25 @@ function startGame() {
     init();
 }
 
+function backToMenu() {
+    world.gameOver = false;
+    world.gameWin = false;
 
+    window.location.reload(true);
+}
+
+function MuteGame() {
+    let image = document.getElementById('mute');
+    isMuted = !isMuted;
+
+    if(isMuted) {
+        audio.muteAll();
+        image.src = './img/11_play_icons/mute.png';
+    } else {
+        audio.unmuteAll();
+        image.src = './img/11_play_icons/volume.png';
+    }
+}
 
 function howToPlay() {
     let element = document.getElementById('how-to-play');
@@ -90,9 +109,10 @@ window.addEventListener("orientationchange", checkDevice, false);
 window.addEventListener("load", checkDevice, false);
 
 
- 
-
 window.addEventListener("keydown", (e) => {
+    if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+        e.preventDefault();
+    }
     if (e.keyCode === 37) {
         keyboard.LEFT = true;
     } else if (e.keyCode === 39) {
@@ -124,8 +144,26 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
-window.addEventListener("keydown", (e) => {
-    if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
-        e.preventDefault();
+
+function addButtonEventListener(buttonId, key) {
+    let button = document.getElementById(buttonId);
+
+    let setKeyTrue = (event) => {
+        event.preventDefault();
+        keyboard[key] = true;
+    };
+
+    let setKeyFalse = (event) => {
+        event.preventDefault();
+        keyboard[key] = false;
     }
-})  
+    button.addEventListener('mousedown', setKeyTrue);
+    button.addEventListener('mouseup', setKeyFalse);
+    button.addEventListener('touchstart', setKeyTrue);
+    button.addEventListener('touchend', setKeyFalse);
+}
+
+addButtonEventListener('button-left', 'LEFT');
+addButtonEventListener('button-right', 'RIGHT');
+addButtonEventListener('button-jump', 'SPACE');
+addButtonEventListener('button-throw', 'D');

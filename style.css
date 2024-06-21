@@ -14,7 +14,7 @@ body {
     background-image: url('./img/10_background_body/desert.jpeg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-color: white;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
 }
@@ -55,7 +55,7 @@ button {
     background-image: url('./img/10_background_body/hot-to-play-background.jpg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
 }
 
 #rotate-device {
@@ -76,7 +76,7 @@ button {
     background-image: url('./img/10_background_body/desert.jpeg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     z-index: 1000;
 }
 
@@ -90,7 +90,7 @@ button {
     bottom: 10% !important;
 }
 
-#start-button, #legend {
+.start-button {
     position: absolute;
     bottom: 20%;
     width: 240px;
@@ -107,9 +107,8 @@ button {
     z-index: 1;
 }
 
-#start-button:hover,
-#legend:hover,
-#button:hover,
+.start-button:hover,
+.button:hover,
 #cancel-button:hover {
     cursor: pointer;
     transform: translate(transition);
@@ -121,7 +120,7 @@ button {
     display: none;
 }
 
-#button, #cancel-button{
+.button, #cancel-button{
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -131,15 +130,15 @@ button {
     transition: background-position 0.225s ease-in-out, box-shadow 0.225s ease-in-out;
 }
 
-#button img, #cancel-button img {
+.button img, #cancel-button img {
     width: 35px;
     height: 35px;
 }
 
 .walk-buttons {
     position: absolute;
-    left: 50px;
-    bottom: 2px;
+    left: 40px;
+    bottom: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,8 +149,8 @@ button {
 
 .jump-throw-buttons {
     position: absolute;
-    right: 50px;
-    bottom: 2px;
+    right: 40px;
+    bottom: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -237,12 +236,23 @@ h2 {
     top: 10px;
 }
 
+#back-to-menu {
+   position: absolute;
+   bottom: 10px;
+   left: 50%;
+   transform: translateX(-50%);
+}
+
 @media (max-width: 1000px) and (orientation: landscape) {
     h1 {
       display: none;
     }
 
-    #start-button, #legend {
+    #start-canvas {
+        background-size: cover;
+    }
+
+    .start-button {
         width: 160px;
         height: 60px;
         padding: 6px 12px;
@@ -261,7 +271,7 @@ h2 {
     }
 
     #cancel-button {
-        right: 15%;
+        right: 5%;
         top: 5%;
     }
 
@@ -283,12 +293,12 @@ h2 {
         font-size: 18px;
     }
 
-    #button img, #cancel-button img {
+    .button img, #cancel-button img {
         width: 20px;
         height: 20px;
     }
 
-    #button, #cancel-button{
+    .button, #cancel-button{
         width: 50px;
         height: 50px;}
   }

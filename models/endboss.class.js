@@ -130,6 +130,10 @@ class Endboss extends MovableObject {
         let index = world.level.enemies.indexOf(this);
         if (index >- 1) {
             world.level.enemies.splice(index, 1);
+
+            world.gameWin = true;
+            world.audio.bossChicken_dead_audio.pause();
+            world.audio.bossChicke_walk_audio.pause();
         }
       }, 1000)
   }

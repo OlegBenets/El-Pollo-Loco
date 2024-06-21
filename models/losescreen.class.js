@@ -1,8 +1,7 @@
-class Winscreen extends DrawableObject {
+class Losescreen extends DrawableObject {
 
     IMAGES = [
-        'img/9_intro_outro_screens/win/win_1.png',
-        'img/9_intro_outro_screens/win/win_2.png',
+        'img/9_intro_outro_screens/game_over/you lost.png',
     ];
 
     constructor() {

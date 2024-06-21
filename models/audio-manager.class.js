@@ -14,5 +14,33 @@ class AudioManager {
         this.bossfight_audio = new Audio('./audio/boss-fight.mp3');
         this.bossChicke_walk_audio = new Audio('./audio/chicken.mp3');
         this.background = new Audio('./audio/background.mp3');
+        this.snoring = new Audio('./audio/snoring.mp3');
+        
+        this.initializeAudioElements();
+    }
+
+
+    initializeAudioElements() {
+        Object.values(this).forEach(audioElement => {
+            if (audioElement instanceof Audio) {
+                audioElement.muted = false;
+            }
+        });
+    }
+
+    muteAll() {
+        Object.values(this).forEach(audioElement => {
+            if(audioElement instanceof Audio) {
+                audioElement.muted = true;
+            }
+        });
+    }
+
+    unmuteAll() {
+        Object.values(this).forEach(audioElement => {
+            if(audioElement instanceof Audio) {
+                audioElement.muted = false;
+            }
+        });
     }
 }

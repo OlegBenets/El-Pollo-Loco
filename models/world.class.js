@@ -11,6 +11,7 @@ class World {
   salsaBottleStatus = new BottleStatusBar();
   coinStatus = new CoinStatusBar();
   winscreen = new Winscreen();
+  losescreen = new Losescreen();
   throwableObjects = []; 
   lastThrowTIme = 0;
 
@@ -19,6 +20,8 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.audio = audio;
+    this.gameOver = false;
+    this.gameWin = false;
     this.draw();
     this.setWorld();
     this.run();
@@ -65,7 +68,6 @@ class World {
             enemy.chickenBossAttack();
           } else if(!this.character.isHurt()) {
             this.character.hit();
-            console.log(this.character.energy);
             this.healthStatus.setPercentage(this.character.energy);
           }
         } else {
@@ -88,13 +90,13 @@ class World {
               enemy.hitEndBoss();
               enemy.hitChickenBoss();
               this.audio.splash_audio.play();
-            } else if (enemy.bossDead) {
-              this.audio.bossChicken_dead_audio.play();
+            } 
+             if (enemy.bossDead) {
+              this.audio.bossfight_audio.pause();
               this.audio.game_win_audio.play();
-              this.addToMap(this.winscreen);
             }
             this.bossStatus.setPercentage(enemy.energy);
-          }
+        }
           bottle.splashAnimation();
           bottle.removeBottle();
         }
@@ -176,6 +178,15 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
 
+    if (this.gameOver) {
+        this.addToMap(this.losescreen);
+        document.getElementById('back-to-menu').classList.remove('d-none');
+        return;
+    } else if (this.gameWin) {
+      this.addToMap(this.winscreen);
+      document.getElementById('back-to-menu').classList.remove('d-none');
+      return;
+    }
     // draw() wird immer wieder aufgerufen
     let self = this;
     requestAnimationFrame(function () {
@@ -194,7 +205,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
