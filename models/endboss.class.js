@@ -6,8 +6,7 @@ class Endboss extends MovableObject {
   offsetLeft = 15;
   offsetTop = 70;
   offsetBottom = 15;
-  bossfight_audio = new Audio('./audio/boss-fight.mp3');
-  bossChicke_walk_audio = new Audio('./audio/chicken.mp3');
+
 
   IMAGES_ALERT = [
     "./img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -75,7 +74,8 @@ class Endboss extends MovableObject {
       if (world && world.character) {
         if (world.character.x > 3300 && !this.hadFirstContact) {
           this.hadFirstContact = true;
-          this.bossfight_audio.play();
+          world.audio.bossfight_audio.play();
+          world.audio.background.pause();
           this.startWalking();
         } else if (this.bossDead) {
           this.playAnimation(this.IMAGES_DEAD);
@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
   }
 
   startWalking() {
-  
+
     if (this.walkingInterval) clearInterval(this.walkingInterval);
     this.walkingInterval = setInterval(() => {
       if (!this.isHurt && !this.bossDead && !this.isAttacking) {
@@ -110,9 +110,8 @@ class Endboss extends MovableObject {
   }
 
   hurtAnimation() {
-    this.bossChicke_walk_audio.play();
     this.isHurt = true;
-
+    world.audio.bossChicke_walk_audio.play();
     setTimeout(() => {
       this.isHurt = false;
       if (!this.bossDead) {
@@ -125,6 +124,7 @@ class Endboss extends MovableObject {
 
   die() {
     this.bossDead = true;
+    world.audio.bossChicken_dead_audio.play();
     this.playAnimation(this.IMAGES_DEAD);
       setTimeout(() => {
         let index = world.level.enemies.indexOf(this);

@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let background;
+let audio = new AudioManager();
 
 function load() {
     checkDevice();
@@ -9,8 +9,7 @@ function load() {
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-
+    world = new World(canvas, keyboard, audio);
 }
 
 
@@ -18,19 +17,10 @@ function startGame() {
     document.getElementById('play-screen').classList.remove('d-none');
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('canvas').style.display = 'block';
-    initializeBackgroundAudio();
     init();
 }
 
-function initializeBackgroundAudio() {
-    if(!background) {
-        background = new Audio('./audio/background.mp3');
-        background.volume = 0.1;
-    }
-    background.pause();
-    background.currentTime = 0;
-    background.play();
-}
+
 
 function howToPlay() {
     let element = document.getElementById('how-to-play');
