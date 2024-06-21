@@ -11,7 +11,7 @@
     />
     <title>El Pollo Loco</title>
   </head>
-  <body>
+  <body onload="load()">
     <div id="start-screen">
       <canvas id="start-canvas" width="720px" height="480px"></canvas>
       <button onclick="startGame()" id="start-button">Start Game</button>
@@ -40,17 +40,23 @@
       </div>
     </div>
    </div>
+   <div id="rotate-device" class="d-none">
+   <div class="rotate-device-container">
+    <h2>Please Rotate your Device</h2>
+    <img src="./img/11_play_icons/hand-phone.png">
+   </div>
+  </div>
     <h1>El Pollo Loco</h1>
-    <div id="play-screen">
+    <div id="play-screen" class="d-none">
     <div class="screen-audio-buttons">
         <button onclick="" id="button">
           <img src="./img/11_play_icons/mute.png" />
         </button>
-        <button onclick="" id="button">
-            <img src="./img/11_play_icons/full-screen.png" />
+        <button onclick="toggleFullscreen()" id="button">
+            <img id="full-screen" src="./img/11_play_icons/full-screen (1).png" />
           </button>
       </div>
-      <div class="walk-buttons">
+      <div id="walk-buttons" class="walk-buttons">
         <button onclick="" id="button">
           <img src="./img/11_play_icons/left-arrow.png" />
         </button>
@@ -58,7 +64,7 @@
           <img src="./img/11_play_icons/right-arrow.png" />
         </button>
       </div>
-      <div class="jump-throw-buttons">
+      <div id="jump-throw-buttons" class="jump-throw-buttons">
         <button onclick="" id="button">
           <img src="./img/11_play_icons/jump.png" />
         </button>

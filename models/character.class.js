@@ -110,8 +110,7 @@ class Character extends MovableObject {
 
     setInterval(() => {
       if(this.isDead()) {
-        this.game_lost_audio.play();
-        this.playAnimation(this.IMAGES_DEAD);
+        this.CharacterDead();
       } else if(this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if(this.isHurt()) {
@@ -160,5 +159,13 @@ class Character extends MovableObject {
     this.hurt_audio.volume = 0.1;
     this.walking_audio.pause();
   }
+
+  CharacterDead() {
+        this.game_lost_audio.play();
+        this.playAnimation(this.IMAGES_DEAD);
+        setTimeout(() => {
+            this.world.character = null;
+        }, 2000)
+    }
 }
 

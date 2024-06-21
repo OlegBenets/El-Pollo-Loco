@@ -39,6 +39,10 @@ canvas {
     display: block;
 }
 
+button {
+    color: black;
+}
+
 #play-screen {
     position:relative;
 }
@@ -54,7 +58,12 @@ canvas {
     background-size: contain;
 }
 
-#start-screen, #how-to-play {
+#rotate-device {
+    background-color: white !important;
+    background-image: none !important;
+}
+
+#start-screen, #how-to-play, #rotate-device {
     position: fixed;
     top: 0;
     left: 0;
@@ -78,12 +87,12 @@ canvas {
 }
 
 #legend {
-    top: 80% !important;
+    bottom: 10% !important;
 }
 
 #start-button, #legend {
     position: absolute;
-    top: 70%;
+    bottom: 20%;
     width: 240px;
     height: 72px;
     padding: 10px 20px;
@@ -95,6 +104,7 @@ canvas {
     background-size: 150% 100%;
     background-position: right;
     transition: background-position 0.225s ease-in-out, box-shadow 0.225s ease-in-out;
+    z-index: 1;
 }
 
 #start-button:hover,
@@ -128,8 +138,8 @@ canvas {
 
 .walk-buttons {
     position: absolute;
-    left: 80px;
-    bottom: -80px;
+    left: 50px;
+    bottom: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -140,8 +150,8 @@ canvas {
 
 .jump-throw-buttons {
     position: absolute;
-    right: 80px;
-    bottom: -80px;
+    right: 50px;
+    bottom: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -185,6 +195,18 @@ canvas {
     gap: 14px;
 }
 
+.rotate-device-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.rotate-device-container img {
+    width: 80%;
+    height: 80%;
+}
+
 .icons-container span,
 .icons-container p {
     font-size: 20px;
@@ -219,6 +241,56 @@ h2 {
     h1 {
       display: none;
     }
+
+    #start-button, #legend {
+        width: 160px;
+        height: 60px;
+        padding: 6px 12px;
+        font-size: 30px;
+        font-weight: 400;
+    }
+
+    #start-button {
+        top: 2%;
+        left: 20%;
+    }
+
+    #legend {
+        top: 2% !important;
+        right: 20%;
+    }
+
+    #cancel-button {
+        right: 15%;
+        top: 5%;
+    }
+
+    .icon-meaning {
+        gap: 16px;
+    }
+
+    .icon-meaning img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .icons-container {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .icons-container span, .icons-container p {
+        font-size: 18px;
+    }
+
+    #button img, #cancel-button img {
+        width: 20px;
+        height: 20px;
+    }
+
+    #button, #cancel-button{
+        width: 50px;
+        height: 50px;}
   }
 
   @media only screen and (max-width: 450px) {
@@ -231,6 +303,8 @@ h2 {
     canvas {
         width: 100%;
     }
+
+
 }
 
 @media only screen and (max-height: 480px) {

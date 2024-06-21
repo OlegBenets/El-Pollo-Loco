@@ -126,6 +126,12 @@ class Endboss extends MovableObject {
   die() {
     this.bossDead = true;
     this.playAnimation(this.IMAGES_DEAD);
+      setTimeout(() => {
+        let index = world.level.enemies.indexOf(this);
+        if (index >- 1) {
+            world.level.enemies.splice(index, 1);
+        }
+      }, 1000)
   }
 
   chickenBossAttack() {
