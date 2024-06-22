@@ -1,59 +1,80 @@
+/**
+ * Represents a small chicken enemy in the game, extending from MovableObject.
+ */
 class SmallChicken extends MovableObject {
+      /**
+   * @property {number} width - The width of the small chicken.
+   * @property {number} height - The height of the small chicken.
+   * @property {number} y - The initial y-coordinate of the small chicken.
+   * @property {number} offsetRight - The offset from the right edge of the small chicken's hitbox.
+   * @property {number} offsetLeft - The offset from the left edge of the small chicken's hitbox.
+   * @property {number} offsetTop - The offset from the top edge of the small chicken's hitbox.
+   * @property {number} offsetBottom - The offset from the bottom edge of the small chicken's hitbox.
+   * @property {string[]} IMAGES_WALKING - Array of image paths for walking animations of the small chicken.
+   * @property {string[]} IMAGES_DEAD - Array of image paths for death animation of the small chicken.
+   * @property {boolean} isDead - Flag indicating if the small chicken is dead.
+   */
+  width = 60;
+  height = 60;
+  y = 370;
+  offsetRight = 5;
+  offsetLeft = 5;
+  offsetTop = 5;
+  offsetBottom = 5;
 
-    width = 60;
-    height = 60;
-    y = 370;
-    offsetRight = 5;
-    offsetLeft = 5;
-    offsetTop = 5;
-    offsetBottom = 5;
+  IMAGES_WALKING = [
+    './img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+    './img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+    './img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
+  ];
 
-    IMAGES_WALKING = [
-        './img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
-        './img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
-        './img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
-    ];
+  IMAGES_DEAD = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
 
-    IMAGES_DEAD = [
-        'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
-    ];
+  isDead = false;
 
-    isDead = false;
+  /**
+   * Constructs an instance of the SmallChicken class.
+   * Loads initial walking image and starts animation.
+   */
+  constructor() {
+    super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+    this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_DEAD);
+    this.x = 500 + Math.random() * 3100;
+    this.speed = 0.15 + Math.random() * 0.5;
+    this.animate();
+  }
 
-    constructor() {
-        super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_DEAD);
-        this.x = 500 + Math.random() * 3100;
-        this.speed = 0.15 + Math.random() * 0.5;
-        this.animate();
-    }
+    /**
+   * Starts intervals for animation and movement of the small chicken.
+   */
+  animate() {
+    setInterval(() => {
+      if (!this.isDead) {
+        this.moveLeft();
+      }
+    }, 1000 / 60);
 
+    setInterval(() => {
+      if (!this.isDead) {
+        this.playAnimation(this.IMAGES_WALKING);
+      }
+    }, 100);
+  }
 
-    animate() {
-        setInterval(() => {
-            if(!this.isDead) {}
-            this.moveLeft();
-                this.jump();
-        }, 1000 / 60);
-
-        setInterval(() => {
-         if(!this.isDead) {
-            this.playAnimation(this.IMAGES_WALKING);
-         }
-        }, 100);
-    }
-
-    EnemyDead() {
-        if(!this.isDead) {
-            this.isDead = true;
-            this.playAnimation(this.IMAGES_DEAD);
-            setTimeout(() => {
-                let index = world.level.enemies.indexOf(this);
-                if (index >- 1) {
-                    world.level.enemies.splice(index, 1);
-                }
-            }, 250)
+    /**
+   * Handles the death of the small chicken: plays death animation, removes from the level after delay.
+   */
+  EnemyDead() {
+    if (!this.isDead) {
+      this.isDead = true;
+      this.playAnimation(this.IMAGES_DEAD);
+      setTimeout(() => {
+        let index = world.level.enemies.indexOf(this);
+        if (index > -1) {
+          world.level.enemies.splice(index, 1);
         }
+      }, 250);
     }
+  }
 }
