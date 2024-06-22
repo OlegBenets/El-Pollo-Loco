@@ -221,12 +221,16 @@ function addButtonEventListener(buttonId, key) {
   let button = document.getElementById(buttonId);
 
   let setKeyTrue = (event) => {
-    event.preventDefault();
+    if(event.cancelable) {
+      event.preventDefault();
+    }
     keyboard[key] = true;
   };
 
   let setKeyFalse = (event) => {
-    event.preventDefault();
+    if(event.cancelable) {
+      event.preventDefault();
+    }
     keyboard[key] = false;
   };
   button.addEventListener('mousedown', setKeyTrue);
