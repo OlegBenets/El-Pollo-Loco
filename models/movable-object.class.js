@@ -48,6 +48,7 @@ class MovableObject extends DrawableObject {
     } else {
       return this.y < 160;
     }
+
   }
 
     /**
@@ -70,10 +71,7 @@ class MovableObject extends DrawableObject {
    * @returns {boolean} True if above the top of the other object, false otherwise.
    */
   isAboveEnemyTop(mo) {
-    let tolerance = 20;
-    return (
-      this.y + this.height - this.offsetTop <= mo.y + mo.offsetTop + tolerance
-    );
+    return this.y + this.height - this.offsetTop <= mo.y + mo.offsetTop;
   }
 
     /**

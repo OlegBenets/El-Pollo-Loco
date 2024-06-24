@@ -106,6 +106,7 @@ class World {
       this.addToMap(this.winscreen);
     }
     document.getElementById("back-to-menu").classList.remove("d-none");
+    document.getElementById("play-again").classList.remove("d-none");
   }
 
     /**
@@ -129,7 +130,7 @@ class World {
       if (!this.character.isColliding(enemy)) {
         return;
       }
-      if (this.character.isAboveGround()) {
+      if (this.character.isAboveGround() && this.canDefeatEnemy(enemy)) {
         this.defeatEnemy(enemy);
       } else if (enemy instanceof Endboss && !enemy.isAttacking) {
         enemy.chickenBossAttack();
@@ -190,12 +191,22 @@ class World {
    * @param {Chicken | SmallChicken} enemy - The chicken enemy object.
    */
   defeatEnemy(enemy) {
-    if ((enemy instanceof Chicken || enemy instanceof SmallChicken) && !enemy.isDead && this.character.isAboveEnemyTop(enemy)) {
       enemy.EnemyDead();
       this.audio.chicken_dead_audio.play();
       this.character.jump();
       this.audio.jumping_audio.play();
-    }
+  }
+
+  /**
+   * Checks if the character can defeat an enemy.
+   * @param {MovableObject} enemy - The enemy object to check.
+   */
+  canDefeatEnemy(enemy) {
+    return (
+      (enemy instanceof Chicken || enemy instanceof SmallChicken) && 
+      !enemy.isDead && 
+      this.character.isAboveEnemyTop(enemy)
+    );
   }
 
    /**
@@ -229,9 +240,14 @@ class World {
    */
   throwBottleAndUpdateStatus() {
     let bottle = new ThrowableObject(
-      this.character.x + 100,
-      this.character.y + 100
+      this.character.x + 50,
+      this.character.y + 50
     );
+      if (this.character.otherDirection) {
+    bottle.otherDirection = true;
+  } else {
+    bottle.otherDirection = false;
+  }
     this.throwableObjects.push(bottle);
     this.character.throwBottle();
     this.salsaBottleStatus.setPercentage(this.character.bottles);

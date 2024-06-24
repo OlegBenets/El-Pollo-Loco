@@ -9,6 +9,7 @@ let isMuted = false;
  */
 function load() {
   checkDevice();
+  loadMuteStatus();
 }
 
 /**
@@ -26,9 +27,14 @@ function init() {
  */
 function startGame() {
   document.getElementById('play-screen').classList.remove('d-none');
-  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('start-screen').classList.add('d-none');
   document.getElementById('canvas').style.display = 'block';
   init();
+}
+
+function PlayAgain() {
+init();
+
 }
 
 /**
@@ -42,14 +48,33 @@ function backToMenu() {
 }
 
 /**
- * Mutes or unmutes the game.
- * Toggles between muting and normal audio output.
- * Updates the mute icon accordingly.
+ * Toggles between muting and unmuting the game audio.
+ * Updates the mute icon and saves the mute status to localStorage.
  */
 function MuteGame() {
-  let image = document.getElementById('mute');
   isMuted = !isMuted;
+  checkMuteStatus();
+  localStorage.setItem('isMuted', isMuted);
+}
 
+/**
+ * Loads the mute status from localStorage and applies it.
+ * Updates the mute icon based on the loaded status.
+ */
+function loadMuteStatus() {
+  let savedMutedState = localStorage.getItem('isMuted');
+  if(savedMutedState !== null) {
+    isMuted = JSON.parse(savedMutedState);
+    checkMuteStatus();
+  }
+}
+
+/**
+ * Checks the current mute status (`isMuted`) and updates the mute icon accordingly.
+ * Mutes or unmutes all game audio based on the `isMuted` status.
+ */
+function checkMuteStatus() {
+  let image = document.getElementById('mute');
   if (isMuted) {
     audio.muteAll();
     image.src = './img/11_play_icons/mute.png';
@@ -68,14 +93,12 @@ function howToPlay() {
   element.classList.toggle('d-none');
 }
 
-let elem = document.documentElement;
-
 /**
  * Event handler for toggling fullscreen mode.
  * Checks if fullscreen mode is active and toggles accordingly.
  */
 function toggleFullscreen() {
-  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFUllscreenElement) {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
     openFullScreen();
   } else {
     closeFullScreen();
@@ -86,6 +109,7 @@ function toggleFullscreen() {
  * Opens fullscreen mode based on browser API.
  */
 function openFullScreen() {
+  let elem = document.documentElement;
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
   } else if (elem.webkitRequestFullscreen) {
@@ -130,15 +154,18 @@ function checkDevice() {
   let rotateDevice = document.getElementById('rotate-device');
   let walkButtons = document.getElementById('walk-buttons');
   let jumpThrowButtons = document.getElementById('jump-throw-buttons');
+
   if (!isMobileOrTablet()) {
     hideButtons(rotateDevice, walkButtons, jumpThrowButtons);
     return;
   }
+
   if (window.innerWidth < window.innerHeight) {
     rotateDevice.classList.remove('d-none');
   } else {
     rotateDevice.classList.add('d-none');
   }
+
   walkButtons.classList.remove('d-none');
   jumpThrowButtons.classList.remove('d-none');
 }
@@ -159,9 +186,9 @@ function hideButtons(rotateDevice, walkButtons, jumpThrowButtons) {
  * Event listener for window resize and orientation change.
  * Calls `checkDevice()` to adjust UI elements based on new dimensions or orientation.
  */
-window.addEventListener('resize', checkDevice, false);
-window.addEventListener('orientationchange', checkDevice, false);
-window.addEventListener('load', checkDevice, false);
+window.addEventListener('resize', checkDevice);
+window.addEventListener('orientationchange', checkDevice);
+window.addEventListener('load', checkDevice);
 
 /**
  * Adds event listeners for keyboard controls.

@@ -13,7 +13,7 @@ body {
   background-image: url("./img/10_background_body/desert.jpeg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-color: white;
   font-family: "zabras", Arial, Helvetica, sans-serif;
 }
@@ -53,12 +53,30 @@ button {
   background-image: url("./img/10_background_body/hot-to-play-background.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 
 #rotate-device {
   background-color: white !important;
   background-image: none !important;
+}
+
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#loading-screen img {
+  width: 50px;
+  height: 50px;
 }
 
 #start-screen,
@@ -76,7 +94,7 @@ button {
   background-image: url("./img/10_background_body/desert.jpeg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   z-index: 1000;
 }
 
@@ -87,12 +105,12 @@ button {
 }
 
 #legend {
-  bottom: 10% !important;
+  bottom: 4% !important;
 }
 
 .start-button {
   position: absolute;
-  bottom: 20%;
+  bottom: 13%;
   width: 240px;
   height: 72px;
   padding: 10px 20px;
@@ -183,7 +201,7 @@ button {
   height: auto;
 }
 
-.flaticon-link {
+a {
   display: flex;
   justify-content: center;
   color: black;
@@ -234,6 +252,14 @@ button {
   height: 35px;
 }
 
+.legals {
+  position: absolute;
+  bottom: 1%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 h2 {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -255,13 +281,37 @@ h2 {
   transform: translateX(-50%);
 }
 
+#play-again {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+@media (max-width: 1000px) {
+  body {
+    background-size: cover;
+  }
+
+  #start-screen,
+#how-to-play,
+#rotate-device {
+  background-size: cover;
+}
+
+.start-button {
+  width: 160px;
+  height: 60px;
+  padding: 6px 12px;
+  font-size: 30px;
+  font-weight: 400;
+}
+}
+
 @media (max-width: 1000px) and (orientation: landscape) {
   h1 {
     display: none;
-  }
-
-  #start-canvas {
-    background-size: cover;
   }
 
   .start-button {

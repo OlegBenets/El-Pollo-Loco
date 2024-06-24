@@ -135,7 +135,7 @@ class Endboss extends MovableObject {
     if (this.walkingInterval) clearInterval(this.walkingInterval);
     this.walkingInterval = setInterval(() => {
       if (!this.isHurt && !this.bossDead && !this.isAttacking) {
-        this.moveLeft();
+        this.changeDirection();
       }
     }, 1000 / 60);
 
@@ -146,6 +146,20 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 100);
+  }
+
+/**
+ * Changes the direction of movement based on the character's position.
+ * Updates the movement direction and sets the flip direction for animation.
+ */
+  changeDirection() {
+    if(world.character.x > this.x) {
+      this.moveRight();
+      this.otherDirection = true;
+    } else {
+      this.moveLeft();
+      this.otherDirection = false;
+    }
   }
 
     /**

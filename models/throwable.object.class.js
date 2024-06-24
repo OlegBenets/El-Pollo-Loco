@@ -8,7 +8,6 @@ class ThrowableObject extends MovableObject {
    * @property {number} offsetLeft - Left offset for collision detection.
    * @property {number} offsetTop - Top offset for collision detection.
    * @property {number} offsetBottom - Bottom offset for collision detection.
-   * @property {Audio} splash_audio - Audio object for splash sound.
    * @property {string[]} IMAGES_ROTATE - Array of paths to images for rotation animation.
    * @property {string[]} IMAGES_SPLASH - Array of paths to images for splash animation.
    * @property {boolean} isBroken - Flag indicating if the object has splashed.
@@ -17,7 +16,6 @@ class ThrowableObject extends MovableObject {
   offsetLeft = 5;
   offsetTop = 5;
   offsetBottom = 5;
-  splash_audio = new Audio('./audio/bottle-splash.mp3');
 
   IMAGES_ROTATE = [
     './img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -69,9 +67,20 @@ class ThrowableObject extends MovableObject {
    */
   rotateBottle() {
     this.rotationInterval = setInterval(() => {
-      this.x += 20;
+      this.checkDirection();
       this.playAnimation(this.IMAGES_ROTATE);
     }, 30);
+  }
+
+  /**
+ * Checks the direction of the bottle and adjusts its horizontal position.
+ */
+  checkDirection() {
+    if(this.otherDirection) {
+      this.x -= 20;
+    } else {
+      this.x += 20;
+    }
   }
 
    /**
@@ -96,7 +105,7 @@ class ThrowableObject extends MovableObject {
         this.speedY = 0;
         clearInterval(this.rotationInterval);
         this.splashAnimation();
-        this.splash_audio.play();
+        world.audio.splash_audio.play();
         this.removeBottle();
       } else {
         this.y += this.speedY;
