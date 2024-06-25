@@ -10,6 +10,7 @@ let isMuted = false;
 function load() {
   checkDevice();
   loadMuteStatus();
+  setPlayAgainReload();
 }
 
 /**
@@ -29,19 +30,28 @@ function startGame() {
   document.getElementById('play-screen').classList.remove('d-none');
   document.getElementById('start-screen').classList.add('d-none');
   document.getElementById('canvas').style.display = 'block';
+  document.getElementById('loading-screen').classList.add('d-none');
   init();
 }
 
+/**
+ * Initiates the "Play Again" action by setting a flag in localStorage
+ * and reloading the page to reset the game state.
+ */
 function PlayAgain() {
-  clearAllIntervals();
-  startGame();
-  level = new Level();
-  document.getElementById("back-to-menu").classList.add("d-none");
-  document.getElementById("play-again").classList.add("d-none");
+  localStorage.setItem('playAgain', 'true');
+  window.location.reload();
 }
 
-function clearAllIntervals() {
-  for (let i = 1; i < 9999; i++) window.clearInterval(i);
+/**
+ * Handles the reload after the "Play Again" action by checking the flag in localStorage.
+ * If the flag is set, it removes the flag and starts the game.
+ */
+function setPlayAgainReload() {
+  if(localStorage.getItem('playAgain') === 'true') {
+    localStorage.removeItem('playAgain');
+    startGame();
+  }
 }
 
 /**
