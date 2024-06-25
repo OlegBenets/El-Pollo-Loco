@@ -21,6 +21,7 @@ class AudioManager {
     this.bossChicke_walk_audio = new Audio('./audio/chicken.mp3');
     this.background = new Audio('./audio/background.mp3');
     this.snoring = new Audio('./audio/snoring.mp3');
+    this.click = new Audio('./audio/click.mp3');
 
     this.initializeAudioElements();
   }

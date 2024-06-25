@@ -218,6 +218,7 @@ class Character extends MovableObject {
       this.world.audio.game_lost_audio.play();
       this.playAnimation(this.IMAGES_DEAD);
       world.gameOver = true;
+      world.audio.bossChicke_walk_audio.pause();
     }
   }
 }

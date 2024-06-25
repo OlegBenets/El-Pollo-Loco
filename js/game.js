@@ -33,8 +33,15 @@ function startGame() {
 }
 
 function PlayAgain() {
-init();
+  clearAllIntervals();
+  startGame();
+  level = new Level();
+  document.getElementById("back-to-menu").classList.add("d-none");
+  document.getElementById("play-again").classList.add("d-none");
+}
 
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 /**
@@ -270,3 +277,4 @@ addButtonEventListener('button-left', 'LEFT');
 addButtonEventListener('button-right', 'RIGHT');
 addButtonEventListener('button-jump', 'SPACE');
 addButtonEventListener('button-throw', 'D');
+

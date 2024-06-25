@@ -65,6 +65,7 @@ class World {
    */
   initializeBackgroundAudio() {
     if (this.audio && this.audio.background) {
+      this.audio.background.currentTime = 0;
       this.audio.background.play();
     }
   }
@@ -100,6 +101,9 @@ class World {
     clearInterval(this.gameInterval);
     cancelAnimationFrame(this.animationFrame);
     this.keyboard = null;
+    if(this.audio && this.audio.background) {
+      this.audio.background.pause();
+    }
     if (this.gameOver) {
       this.addToMap(this.losescreen);
     } else if (this.gameWin) {
@@ -113,10 +117,9 @@ class World {
    * Checks if the character throws a bottle based on keyboard input.
    */
   checkThrowObject() {
-    if (this.keyboard.D && Date.now() - this.lastThrowTIme >= 500) {
+    if (this.keyboard && this.keyboard.D && Date.now() - this.lastThrowTIme >= 500) {
       if (this.character.bottles > 0) {
         this.audio.throw_audio.play();
-        this.audio.throw_audio.volume = 0.1;
         this.throwBottleAndUpdateStatus();
       }
     }
@@ -205,7 +208,8 @@ class World {
     return (
       (enemy instanceof Chicken || enemy instanceof SmallChicken) && 
       !enemy.isDead && 
-      this.character.isAboveEnemyTop(enemy)
+      this.character.isAboveEnemyTop(enemy) &&
+      this.character.speedY < 0
     );
   }
 

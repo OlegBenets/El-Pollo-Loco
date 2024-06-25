@@ -15,7 +15,7 @@ class Level {
   backgroundObjects;
   bottles;
   coins;
-  level_end_x = 3500;
+  level_end_x = 3800;
 
     /**
    * @param {DrawableObject[]} enemies - Array of enemy objects to populate the level with.
